@@ -2,13 +2,7 @@ package main
 
 import "fmt"
 
-type ComparissionTypes interface {
-	int | int64 | int32 | int8 | int16 |
-		float64 | float32 | string |
-		complex64 | complex128 | bool
-}
-
-func Intersection[T ComparissionTypes](a1 []T, a2 []T) []T {
+func Intersection[T comparable](a1 []T, a2 []T) []T {
 	intersected := make(map[T]struct{})
 	//Записываем все значения первого слайса в хэш
 	for _, el := range a1 {

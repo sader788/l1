@@ -5,20 +5,13 @@ import (
 	"sync"
 )
 
-// Возьмем некоторые сравниваемые типы для ключа
-type ComparissionTypes interface {
-	int | int64 | int32 | int8 | int16 |
-		float64 | float32 | string |
-		complex64 | complex128 | bool
-}
-
 // Для доступа к критической секции будем использовать RWmutex
-type ConcurrentMap[keyT ComparissionTypes, valT any] struct {
+type ConcurrentMap[keyT comparable, valT any] struct {
 	mtx     sync.RWMutex
 	concMap map[keyT]valT
 }
 
-func NewConcMap[keyT ComparissionTypes, valT any]() *ConcurrentMap[keyT, valT] {
+func NewConcMap[keyT comparable, valT any]() *ConcurrentMap[keyT, valT] {
 	return &ConcurrentMap[keyT, valT]{concMap: make(map[keyT]valT)}
 }
 
